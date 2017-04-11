@@ -3,10 +3,10 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
-use en0ma\Drone\Commands\MigrateCommand;
-use en0ma\Drone\Commands\SeedCommand;
+use en0ma\Rumble\Commands\MigrateCommand;
+use en0ma\Rumble\Commands\SeedCommand;
 
-$app = new Application('Drone: DynamoDb migration tool.');
+$app = new Application('Rumble: DynamoDb migration tool.');
 $app->add(new MigrateCommand());
 $app->add(new SeedCommand());
 $app->run();
