@@ -38,7 +38,7 @@ class MigrateCommand extends Command
             $this->runMigration($classes);
 
         } catch(\Exception $e) {
-            echo "Migration Error: {$e->getMessage()}";
+            echo "Migration Error: {$e->getMessage()}".PHP_EOL;
             exit();
         }
     }

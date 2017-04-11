@@ -40,7 +40,7 @@ class SeedCommand extends Command
             $this->runSeeder($classes);
 
         } catch(\Exception $e) {
-            echo "Seed Error: {$e->getMessage()}";
+            echo "Seed Error: {$e->getMessage()}".PHP_EOL;
             exit();
         }
     }
