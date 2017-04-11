@@ -1,0 +1,14 @@
+{
+    "name": "en0ma/drone",
+    "description": "A dynamodb migration tool",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lawrence Enehizena",
+            "email": "lawstands@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
