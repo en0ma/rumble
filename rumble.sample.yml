@@ -1,0 +1,5 @@
+dynamo_db:
+  endpoint : HOST
+  key : YOUR_KEY
+  secret : YOUR_SECRET
+  region : YOUR_REGION
