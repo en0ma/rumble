@@ -89,27 +89,27 @@ abstract class Migration
     }
 
      /**
-        Set the AttributeDefinition to an empty array. 
-        This will make setting the attributes easier.
-    **/
+      * Set the AttributeDefinition to an empty array.
+      * This will make setting the attributes easier.
+     */
     private function setAttributeDefinitions()
     {
         if (!isset($this->tableParams['AttributeDefinitions'])) $this->tableParams['AttributeDefinitions'] = [];
     }
 
     /**
-        Set the Keyschema to an empty array. 
-        This will make setting the primary key(s) easier.
-    **/
+     *  Set the Keyschema to an empty array.
+     *  This will make setting the primary key(s) easier.
+     */
     private function setKeySchema()
     {
         if (!isset($this->tableParams['KeySchema'])) $this->tableParams['KeySchema'] = [];
     }
 
     /**
-        Verify that the TableName param is set.
-        This is a mandatory param, just like the hash key.
-    **/
+     *  Verify that the TableName param is set.
+     *  This is a mandatory param, just like the hash key.
+     */
     private function isTableNameSet()
     {
         if (!isset($this->tableParams['TableName']))
@@ -117,9 +117,9 @@ abstract class Migration
     }
 
     /**
-        Very that a valid primary key was added with a corresponding valid 
-        attribute name.
-    **/
+     *  Very that a valid primary key was added with a corresponding valid
+     *  attribute name.
+     */
     private function isHashSet()
     {
         $hashKeysFound = [];
@@ -142,17 +142,17 @@ abstract class Migration
     }
 
     /**
-        Set the setProvisionedThroughput param to an empty array.
-        This will make setting up ReadCapacityUnit and WriteCapacityUnit up easier.
-    **/
+     *  Set the setProvisionedThroughput param to an empty array.
+     *  This will make setting up ReadCapacityUnit and WriteCapacityUnit up easier.
+     */
     private function setProvisionedThroughput()
     {
         if(!isset($this->tableParams['ProvisionedThroughput'])) $this->tableParams['ProvisionedThroughput'] = [];
     }
 
     /**
-        Show completion message, when migration is successful.
-    **/
+     *  Show completion message, when migration is successful.
+     */
     private function displayCompletionMessage()
     {
         $className = get_class($this);
@@ -170,9 +170,9 @@ abstract class Migration
         return in_array($table, $result['TableNames']);
     }
 
-    /** 
-        Create a new DynamoDB Table.
-    **/
+    /**
+     *  Create a new DynamoDB Table.
+     */
     protected function create()
     {
         $this->isTableNameSet();
@@ -186,8 +186,8 @@ abstract class Migration
     }
 
     /**
-        Delete DynamoDB Table.
-    **/
+     *  Delete DynamoDB Table.
+     */
     protected function delete()
     {
         $this->isTableNameSet();
@@ -197,8 +197,8 @@ abstract class Migration
     }
 
     /**
-        Update dynamoDB Table.
-    **/
+     *  Update dynamoDB Table.
+     */
     protected function update()
     {
         $this->isTableNameSet();
@@ -208,7 +208,7 @@ abstract class Migration
     }
 
     /**
-        Force migration files to define the up method.
-    **/
+     *  Force migration files to define the up method.
+     */
     protected abstract function up();
 }

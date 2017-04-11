@@ -8,7 +8,7 @@ trait Resolver
 {
     /**
      *  Get class names from files in migrations/seeds directory.
-        For any class found require it, so we can create an instance.
+     *  For any class found require it, so we can create an instance.
      *
      * @param $dir
      * @return array
@@ -38,8 +38,8 @@ trait Resolver
 
     /**
      *  Build class names from file name. This uses an underscore (_) convention.
-        Each file in eigther the migrations or seeds folder, uses an underscore naming
-        convention. eg: create_me_table => CreateMeTable (ClassName)
+     *  Each file in eigther the migrations or seeds folder, uses an underscore naming
+     *  convention. eg: create_me_table => CreateMeTable (ClassName)
      *
      * @param $file
      * @return mixed
@@ -55,6 +55,10 @@ trait Resolver
         return implode('', $fileNameParts);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     protected function getConfig()
     {
         $configFile = 'rumble.yml';

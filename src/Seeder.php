@@ -5,23 +5,23 @@ namespace en0ma\Rumble;
 abstract class Seeder
 {
     /**
-        DynamoDb table
-    **/
+     *  DynamoDb table
+     */
     private $table;
 
     /**
-        Aws dynamoDBClient
-    **/
+     *   Aws dynamoDBClient
+     */
     private $dynamoDBClient;
 
     /**
-        Aws Marshaler(makes formating data easy)
-    **/
+     *  Aws Marshaler(makes formating data easy)
+     */
     private $marshaler;
 
     /**
-        dynamoDB table items
-    **/
+     *  dynamoDB table items
+     */
     private $items = [];
 
     /**
@@ -62,9 +62,10 @@ abstract class Seeder
     }
 
     /**
-        Verify that the TableName param is set.
-        This is a mandatory param, just like the hash key.
-    **/
+     * Verify that the TableName param is set.
+     * This is a mandatory param, just like the hash key.
+     * @throws \Exception
+     */
     private function isTableNameSet()
     {
         if (!$this->table)
@@ -72,8 +73,8 @@ abstract class Seeder
     }
 
     /**
-        Verify that at least one item is added.
-    **/
+     *   Verify that at least one item is added.
+     */
     private function atLeastOneItemExist()
     {
         if (count($this->items) == 0)
@@ -95,16 +96,16 @@ abstract class Seeder
 
 
     /**
-        Check if there are multiple items.
-    **/
+     * Check if there are multiple items.
+     */
     private function isBatchRequest()
     {
         return (count($this->items) > 1);
     }
 
     /**
-        Check to make sure batch items is not over limit (100).
-    **/
+     * Check to make sure batch items is not over limit (100).
+     */
     private function validateBatchItemsLimit()
     {
         if(count($this->items) > 100)
@@ -112,8 +113,8 @@ abstract class Seeder
     }
 
     /**
-        Show completion message, when migration is successful.
-    **/
+     *  Show completion message, when migration is successful.
+     */
     private function displayCompletionMessage()
     {
         $className = get_class($this);
@@ -122,11 +123,11 @@ abstract class Seeder
     }
 
     /**
-        Add a new item(s) to the specified dynamodb table.
-        If a single item is added, a simple putItem is used.
-        If multiple items are added, then the batchWriteItem is used.
-        NB: batchWriteItem can take maximum of 100 items per call.
-    **/
+     *  Add a new item(s) to the specified dynamodb table.
+     *  If a single item is added, a simple putItem is used.
+     *  If multiple items are added, then the batchWriteItem is used.
+     *  NB: batchWriteItem can take maximum of 100 items per call.
+     */
     protected function save()
     {
         $this->isTableNameSet();
@@ -162,7 +163,7 @@ abstract class Seeder
     }
 
     /**
-        Force seed files to define the seed method.
-    **/
+     *  Force seed files to define the seed method.
+     */
     protected abstract function seed();
 }

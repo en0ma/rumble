@@ -12,8 +12,14 @@ class MigrateCommand extends Command
 {
     use Resolver;
 
+    /**
+     * @var string
+     */
     private $directory = 'migrations';
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this->setName('migrate')
@@ -21,6 +27,10 @@ class MigrateCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {

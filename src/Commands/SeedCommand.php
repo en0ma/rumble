@@ -13,8 +13,14 @@ class SeedCommand extends Command
 {
     use Resolver;
 
+    /**
+     * @var string
+     */
     private $directory = 'seeds';
-    
+
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -23,6 +29,10 @@ class SeedCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         try {
