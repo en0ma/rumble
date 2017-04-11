@@ -19,8 +19,8 @@ While the file name uses underscore ```(_)``` style, the class name for the file
 - Seed: Every seed file (class) you create must extend the rumble ```Seeder``` class and must implement a ```seed``` method.
 
 ### **Using Drone**
-- **Migration:** to migrate files, run ```rumble migrate``` from terminal. e.g: ```/vendor rumble migrate```
-- **Seed:** to seed files, run ``` rumble seed``` from terminal e.g ```/vendor rumble migrate```
+- **Migration:** to migrate files, run ```rumble migrate``` from the root directory of your project. e.g: ```vendor/bin/rumble migrate```
+- **Seed:** to seed files, run ``` rumble seed``` from the root directory of your project e.g ```vendor/bin/rumble migrate```
 
 ### **Supported DynamoDb Features**
 Currently, ```rumble``` supports only the below dynamodb features;
