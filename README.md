@@ -1,49 +1,49 @@
-# **Drone**
+# **Rumble**
 
 A php migration tool for AWS dynamoDB.
 
 ### **Requirements**
-To use ```drone``` for migration and seeding, you should either have aws dymanodb locally installed or have a valid aws credential for the remote version in a particular aws region.
+To use ```rumble``` for migration and seeding, you should either have aws dymanodb locally installed or have a valid aws credential for the remote version in a particular aws region.
 
 ### **Disclosure**
-```drone``` is far from being complete compared to other migration tool out there. More features will be added in the future.
+```rumble``` is far from being complete compared to other migration tool out there. More features will be added in the future.
 
 ### **Naming Convention**
-Since ```drone``` is still in its infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in ```Migrations``` and ```Seeds``` directories at the root of your project. 
+Since ```rumble``` is still in its infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in ```migrations``` and ```seeds``` directories at the root of your project.
 A migration and seed file must be named with an underscore ```(_)``` separating each word that makes up the file name. e.g:
 ```creat_app_records_table.php``` is a valid file name for a migration or a seed file.
-While the file name uses underscore ```(_)``` style, the class name for the file uses Pascal style. i.e for the above file, the class name will be ```CreateAppRecordTable```. 
+While the file name uses underscore ```(_)``` style, the class name for the file uses Pascal style. i.e for the above file, the class name will be ```CreateAppRecordTable```.
 
 ### **Class Definition**
-- Migration : Every migration file (class) you create must extend the drone ```Migration``` class and must implement a ```up``` method.
-- Seed: Every seed file (class) you create must extend the drone ```Seeder``` class and must implement a ```seed``` method.
+- Migration : Every migration file (class) you create must extend the rumble ```Migration``` class and must implement a ```up``` method.
+- Seed: Every seed file (class) you create must extend the rumble ```Seeder``` class and must implement a ```seed``` method.
 
 ### **Using Drone**
-- **Migration:** to migrate files, run ```drone migrate``` from terminal. e.g: ```/vendor drone migrate```
-- **Seed:** to seed files, run ``` drone seed``` from terminal e.g ```/vendor drone migrate```
+- **Migration:** to migrate files, run ```rumble migrate``` from terminal. e.g: ```/vendor rumble migrate```
+- **Seed:** to seed files, run ``` rumble seed``` from terminal e.g ```/vendor rumble migrate```
 
 ### **Supported DynamoDb Features**
-Currently, ```drone``` supports only the below dynamodb features;
-- Creating tables 
+Currently, ```rumble``` supports only the below dynamodb features;
+- Creating tables
 - Updating tables
 - Deleting tables
 - Adding Item (also multiple with batch write)
 
 ### **Tutorial - Create a new table**
-The below code sample shows the minimum required params to create a dynamodb table using ```drone```. This is from the ```up``` method of the migration file (```create_app_records_table.php```).
+The below code sample shows the minimum required params to create a dynamodb table using ```rumble```. This is from the ```up``` method of the migration file (```create_app_records_table.php```).
 The ```up``` method, is the only required method to be implemented by every migration file you create.
 ```php
 <?php
-use Drone/Migration;
+use Rumble/Migration;
 
-class CreateAppRecordsTable extends Migration 
+class CreateAppRecordsTable extends Migration
 {
     public funtion up()
     {
         $table = $this->table('app_records'); //table name
-        $table->addAttribute('app_uid', 'S'); //primary key data type - String(S) 
-        $table->addHash('app_uid');  //primary key 
-        $table->setWCU(10); //Write Capacity Unit (Provisioned write throughPut) 
+        $table->addAttribute('app_uid', 'S'); //primary key data type - String(S)
+        $table->addHash('app_uid');  //primary key
+        $table->setWCU(10); //Write Capacity Unit (Provisioned write throughPut)
         $table->setRCU(10); //Read Capacity Unit (Provisioned read throughPut)
         $table->create();  //create table
     }
@@ -56,7 +56,7 @@ The ```seed``` method is the only required method to be implemented by every see
 
 ```php
 <?php
-use Drone/Seeder;
+use RUmble/Seeder;
 
 class AppRecordsTableSeeder extends Seeder 
 {
