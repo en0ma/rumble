@@ -1,5 +1,5 @@
 {
-    "name": "en0ma/drone",
+    "name": "en0ma/rumble",
     "description": "A dynamodb migration tool",
     "type": "library",
     "keywords": [
@@ -24,13 +24,13 @@
     },
     "autoload": {
         "psr-4": {
-            "en0ma\\Drone\\": "src"
+            "en0ma\\Rumble\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "en0ma\\Drone\\Tests\\": "tests/"
+            "en0ma\\Rumble\\Tests\\": "tests/"
         }
     },
-    "bin": ["drone"]
+    "bin": ["rumble"]
 }
