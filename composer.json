@@ -2,6 +2,11 @@
     "name": "en0ma/drone",
     "description": "A dynamodb migration tool",
     "type": "library",
+    "keywords": [
+        "dynamodb",
+        "migration",
+        "php"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -10,5 +15,21 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "symfony/console": "^3.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "en0ma\\Drone\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "en0ma\\Drone\\Tests\\": "tests/"
+        }
+    },
+    "bin": ["drone"]
 }
