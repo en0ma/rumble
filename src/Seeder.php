@@ -1,5 +1,5 @@
 <?php 
-namespace Drone;
+namespace en0ma\Drone;
 
 abstract class Seeder
 {
