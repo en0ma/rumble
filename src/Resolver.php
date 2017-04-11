@@ -1,5 +1,7 @@
 <?php
-namespace en0ma\Drone;
+
+namespace en0ma\Rumble;
+
 use Symfony\Component\Yaml\Yaml;
 
 trait Resolver
@@ -7,6 +9,7 @@ trait Resolver
     /**
      *  Get class names from files in migrations/seeds directory.
         For any class found require it, so we can create an instance.
+     *
      * @param $dir
      * @return array
      * @throws \Exception
@@ -54,14 +57,14 @@ trait Resolver
 
     protected function getConfig()
     {
-        $configFile = 'drone.yml';
+        $configFile = 'rumble.yml';
         if (!file_exists($configFile)) {
-            throw new \Exception("The drone.yml configuration file is not found.");
+            throw new \Exception("The rumble.yml configuration file is not found.");
         }
         $config = Yaml::parse(file_get_contents($configFile));
 
         if (!isset($config['dynamo_db'])) {
-            throw new \Exception("the dynamo_db config key is required in drone.yml file.");
+            throw new \Exception("the dynamo_db config key is required in rumble.yml file.");
         }
         return $config['dynamo_db'];
     }
