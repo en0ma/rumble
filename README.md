@@ -9,20 +9,18 @@ To use ```drone``` for migration and seeding, you should either have aws dymanod
 ```drone``` is far from being complete compared to other migration tool out there. More features will be added in the future.
 
 ### **Naming Convention**
-Since ```drone``` is still in infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in the ```Migrations``` and ```Seeds``` directories. 
-A migration and seed file must be name with and underscore ```(_)``` separating each word that makes up the file name. e.g:
-```creat_app_records_table.php``` is a valid file name for a migration or a seed file. NB: The ```.php``` is required also.
+Since ```drone``` is still in its infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in ```Migrations``` and ```Seeds``` directories at the root of your project. 
+A migration and seed file must be named with an underscore ```(_)``` separating each word that makes up the file name. e.g:
+```creat_app_records_table.php``` is a valid file name for a migration or a seed file.
 While the file name uses underscore ```(_)``` style, the class name for the file uses Pascal style. i.e for the above file, the class name will be ```CreateAppRecordTable```. 
 
 ### **Class Definition**
-- Migration : Every migration file (class) must extend the base ```Migration``` class in the ```Drone``` directory and must implement a ```up``` method.
-- Seed: Every seed file (class) must extend the base ```Seeder``` class in the ```Drone``` directory and must implement a ```seed``` method.
+- Migration : Every migration file (class) you create must extend the drone ```Migration``` class and must implement a ```up``` method.
+- Seed: Every seed file (class) you create must extend the drone ```Seeder``` class and must implement a ```seed``` method.
 
 ### **Using Drone**
-- **Migration:** to migrate files, run ```php drone.php migrate``` from terminal at ```/srv/workers``` directory
-    e.g: ```/srv/workers php drone.php migrate```
-- **Seed:** to seed files, run ```php drone.php seed``` from terminal at ```/srv/workers``` directory
-    e.g: ```/srv/workers php drone.php migrate```
+- **Migration:** to migrate files, run ```drone migrate``` from terminal. e.g: ```/vendor drone migrate```
+- **Seed:** to seed files, run ``` drone seed``` from terminal e.g ```/vendor drone migrate```
 
 ### **Supported DynamoDb Features**
 Currently, ```drone``` supports only the below dynamodb features;
@@ -36,7 +34,7 @@ The below code sample shows the minimum required params to create a dynamodb tab
 The ```up``` method, is the only required method to be implemented by every migration file you create.
 ```php
 <?php
-include_once("Drone/Migration.php");
+use Drone/Migration;
 
 class CreateAppRecordsTable extends Migration 
 {
@@ -58,7 +56,7 @@ The ```seed``` method is the only required method to be implemented by every see
 
 ```php
 <?php
-include_once("Drone/Seeder.php");
+use Drone/Seeder;
 
 class AppRecordsTableSeeder extends Seeder 
 {
