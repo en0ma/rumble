@@ -16,7 +16,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "symfony/console": "^3.2"
+        "symfony/console": "^3.2",
+        "aws/aws-sdk-php": "2.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7"
