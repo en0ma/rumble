@@ -1,5 +1,5 @@
 <?php 
-namespace Drone;
+namespace en0ma\Drone;
 
 abstract class Migration
 {
@@ -24,7 +24,7 @@ abstract class Migration
     /**
         Set the dynamodb table name.
     **/
-    protected function table(string $name)
+    protected function table(String $name)
     {
         $this->tableParams['TableName'] = $name;
         return $this;
