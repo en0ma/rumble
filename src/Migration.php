@@ -1,5 +1,5 @@
 <?php 
-namespace en0ma\Drone;
+namespace en0ma\Rumble;
 
 abstract class Migration
 {
@@ -9,30 +9,34 @@ abstract class Migration
     private $tableParams = [];
 
     /**
-        AWS DynamodbClient.
+        AWS DynamoDbClient.
     **/
-    private $dynamoDBCLient;
+    private $dynamoDBClient;
 
     /**
-        Set dynamodbClinet.
-    **/
-    public function __construct($dynamoDBCLient)
+     * Migration constructor.
+     * @param $dynamoDBClient
+     */
+    public function __construct($dynamoDBClient)
     {
-        $this->dynamoDBCLient = $dynamoDBCLient;
+        $this->dynamoDBClient = $dynamoDBClient;
     }
 
     /**
-        Set the dynamodb table name.
-    **/
-    protected function table(String $name)
+     * @param $name
+     * @return $this
+     */
+    protected function table($name)
     {
         $this->tableParams['TableName'] = $name;
         return $this;
     }
 
     /**
-        Add an attribute to the table.
-    **/
+     * @param string $name
+     * @param string $dataType
+     * @return $this
+     */
     protected function addAttribute(string $name, string $dataType)
     {
         $this->setAttributeDefinitions();
@@ -41,8 +45,9 @@ abstract class Migration
     }
 
     /**
-        Add a simple primary key to the table.
-    **/
+     * @param string $attributeName
+     * @return $this
+     */
     protected function addHash(string $attributeName)
     {
         $this->setKeySchema();
@@ -51,18 +56,20 @@ abstract class Migration
     }
 
     /**
-        Add a composite (range) key to the table.
-    **/
+     * @param string $attributeName
+     * @return $this
+     */
     protected function addRange(string $attributeName)
     {
         $this->setKeySchema();
         array_push($this->tableParams['KeySchema'],  ['AttributeName' => $attributeName, 'KeyType' => 'HASH']);
         return $this;
-    }   
+    }
 
     /**
-        Add a write capacity unit value to the table.
-    **/
+     * @param int $unit
+     * @return $this
+     */
     protected function setWCU(int $unit)
     {
         $this->setProvisionedThroughput();
@@ -71,8 +78,9 @@ abstract class Migration
     }
 
     /**
-        Add a read capacity unit value to the table.
-    **/
+     * @param int $unit
+     * @return $this
+     */
     protected function setRCU(int $unit)
     {
         $this->setProvisionedThroughput();
@@ -149,19 +157,21 @@ abstract class Migration
     {
         $className = get_class($this);
         echo "{$className} Migrated successfully".PHP_EOL;
+        return true;
     }
 
     /**
-        Check if table exist in dynamodb.
-    **/
+     * @param $table
+     * @return mixed
+     */
     private function tableExist($table)
     {
-        $result = $this->dynamoDBCLient->listTables();
+        $result = $this->dynamoDBClient->listTables();
         return in_array($table, $result['TableNames']);
     }
 
     /** 
-        Create a new Dynamodb Table.
+        Create a new DynamoDB Table.
     **/
     protected function create()
     {
@@ -169,31 +179,31 @@ abstract class Migration
         $this->isHashSet();
 
         if (!$this->tableExist($this->tableParams['TableName'])) {
-            $this->dynamoDBCLient->createTable($this->tableParams);
-            $this->dynamoDBCLient->waitUntil('TableExists', $this->tableParams);
+            $this->dynamoDBClient->createTable($this->tableParams);
+            $this->dynamoDBClient->waitUntil('TableExists', $this->tableParams);
         }
         return $this->displayCompletionMessage();
     }
 
     /**
-        Delete Dynamodb Table.
+        Delete DynamoDB Table.
     **/
     protected function delete()
     {
         $this->isTableNameSet();
-        $this->dynamoDBCLient->deleteTable($this->tableParams);
-        $this->dynamoDBCLient->waitUntil('TableNoExists', $this->tableParams);
+        $this->dynamoDBClient->deleteTable($this->tableParams);
+        $this->dynamoDBClient->waitUntil('TableNoExists', $this->tableParams);
         return $this->displayCompletionMessage();
     }
 
     /**
-        Update dynamodb Table.
+        Update dynamoDB Table.
     **/
     protected function update()
     {
         $this->isTableNameSet();
-        $this->dynamoDBCLient->updateTable($this->tableParams);
-        $this->dynamoDBCLient->waitUntil('TableExists', $this->tableParams);
+        $this->dynamoDBClient->updateTable($this->tableParams);
+        $this->dynamoDBClient->waitUntil('TableExists', $this->tableParams);
         return $this->displayCompletionMessage();
     }
 
