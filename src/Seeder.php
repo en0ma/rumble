@@ -1,40 +1,44 @@
-<?php 
-namespace en0ma\Drone;
+<?php
+
+namespace en0ma\Rumble;
 
 abstract class Seeder
 {
     /**
-        Dynamodb table
+        DynamoDb table
     **/
     private $table;
 
     /**
-        Aws dynamodbClient
+        Aws dynamoDBClient
     **/
-    private $dynamoDBCLient;
+    private $dynamoDBClient;
 
     /**
-        Aws Marshaler(makes fomarting data easy)
+        Aws Marshaler(makes formating data easy)
     **/
     private $marshaler;
 
     /**
-        dynamodb table items
+        dynamoDB table items
     **/
     private $items = [];
 
     /**
-        Set dynamodbClient and Marshaler
-    **/
-    function __construct($dynamoDBCLient, $marshaler)
+     * Seeder constructor.
+     * @param $dynamoDBClient
+     * @param $marshaler
+     */
+    function __construct($dynamoDBClient, $marshaler)
     {
-        $this->dynamoDBCLient = $dynamoDBCLient;
+        $this->dynamoDBClient = $dynamoDBClient;
         $this->marshaler = $marshaler;
     }
 
     /**
-        Set dynamodb table name.
-    **/
+     * @param $name
+     * @return $this
+     */
     protected function table($name)
     {
         $this->table = $name;
@@ -42,8 +46,9 @@ abstract class Seeder
     }
 
     /**
-        Add a new item
-    **/
+     * @param $data
+     * @return $this
+     */
     protected function addItem($data)
     {
         $attibutes = $this->marshaler->marshalItem($data);
@@ -76,6 +81,20 @@ abstract class Seeder
     }
 
     /**
+     * @param $table
+     * @throws \Exception
+     */
+    private function tableExist($table)
+    {
+        $result = $this->dynamoDBClient->listTables();
+
+        if (!in_array($table, $result['TableNames'])) {
+            throw new \Exception("Error: {$table} table those not exist.");
+        }
+    }
+
+
+    /**
         Check if there are multiple items.
     **/
     private function isBatchRequest()
@@ -99,6 +118,7 @@ abstract class Seeder
     {
         $className = get_class($this);
         echo "{$className} seeded successfully". PHP_EOL;
+        return true;
     }
 
     /**
@@ -111,6 +131,7 @@ abstract class Seeder
     {
         $this->isTableNameSet();
         $this->atLeastOneItemExist();
+        $this->tableExist($this->table);
 
         if ($this->isBatchRequest()) {
             $this->validateBatchItemsLimit();
@@ -124,13 +145,13 @@ abstract class Seeder
                ];
             }
 
-            $this->dynamoDBCLient->batchWriteItem(
+            $this->dynamoDBClient->batchWriteItem(
                 [
                     'RequestItems' => $items   
                 ]
             );
         } else {
-            $this->dynamoDBCLient->putItem(
+            $this->dynamoDBClient->putItem(
                 [
                     'TableName' => $this->table,
                     'Item' => $this->items[0]
