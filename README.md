@@ -10,24 +10,26 @@ To use ```rumble``` for migration and seeding, you should either have aws dymano
 
 ### **Naming Convention**
 Since ```rumble``` is still in its infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in ```migrations``` and ```seeds``` directories at the root of your project.
-A migration and seed file must be named with an underscore ```(_)``` separating each word that makes up the file name. e.g:
+
+A migration or seed file must be named with an underscore ```(_)``` separating each word that makes up the file name. e.g:
 ```creat_app_records_table.php``` is a valid file name for a migration or a seed file.
-While the file name uses underscore ```(_)``` style, the class name for the file uses Pascal style. i.e for the above file, the class name will be ```CreateAppRecordTable```.
+While the file name uses underscore ```(_)``` style, the class name for the ```creat_app_records_table.php``` uses Pascal naaming style. i.e the first letter of every words that makes up the file name must be capitaliz e.g: ```CreateAppRecordsTable```.
 
 ### **Class Definition**
-- Migration : Every migration file (class) you create must extend the rumble ```Migration``` class and must implement a ```up``` method.
-- Seed: Every seed file (class) you create must extend the rumble ```Seeder``` class and must implement a ```seed``` method.
+- **Migration:** Every migration file (class) you create must extend the rumble ```Migration``` class and must define a ```up``` method.
+- **Seed:** Every seed file (class) you create must extend the rumble ```Seeder``` class and must define a ```seed``` method.
 
 ### **Using Drone**
 - **Migration:** to migrate files, run ```rumble migrate``` from the root directory of your project. e.g: ```vendor/bin/rumble migrate```
-- **Seed:** to seed files, run ``` rumble seed``` from the root directory of your project e.g ```vendor/bin/rumble migrate```
+- **Seed:** to seed files, run ``` rumble seed``` from the root directory of your project e.g ```vendor/bin/rumble seed```
 
 ### **Supported DynamoDb Features**
 Currently, ```rumble``` supports only the below dynamodb features;
-- Creating tables
-- Updating tables
-- Deleting tables
-- Adding Item (also multiple with batch write)
+- Create table
+- Update table
+- Delete table
+- Add Item
+- Batch Write Item
 
 ### **Tutorial - Create a new table**
 The below code sample shows the minimum required params to create a dynamodb table using ```rumble```. This is from the ```up``` method of the migration file (```create_app_records_table.php```).
@@ -56,15 +58,15 @@ The ```seed``` method is the only required method to be implemented by every see
 
 ```php
 <?php
-use RUmble/Seeder;
+use Rumble/Seeder;
 
 class AppRecordsTableSeeder extends Seeder 
 {
     public function seed()
     {
         $table = $this->table('app_records');
-        $table->addItem(['app_uid' => 'x435-'.rand().'-u2fX'], ['install' => ['time' => time(), 'reason' => 'amazing app!']]); //add sample record(item) 
-        $table->addItem(['app_uid' => '944-'.rand().'-y4hh4', 'events' => ['action' => 'click', 'date' => '2017-04-10']]); //add another
+        $table->addItem(['app_uid' => 'x435-n956-00jX-u2fX', 'uninstall' => ['reason' => 'There are too many sad people in the world.']); 
+        $table->addItem(['app_uid' => '944-jjU0-o0Hi-y4hh4', 'events' => ['action' => 'click', 'date' => '2017-04-10']]); 
         $table->save();
     }
 }
