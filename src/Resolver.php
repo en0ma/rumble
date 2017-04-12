@@ -61,16 +61,19 @@ trait Resolver
      */
     protected function getConfig()
     {
-        $configFile = 'rumble.yml';
+        $configFile = 'rumble.php';
         if (!file_exists($configFile)) {
-            throw new \Exception("The rumble.yml configuration file is not found.");
+            throw new \Exception("The rumble.php configuration file is not found.");
         }
-        $config = Yaml::parse(file_get_contents($configFile));
 
-        if (!isset($config['dynamo_db'])) {
-            throw new \Exception("the dynamo_db config key is required in rumble.yml file.");
+        ob_start();
+        $configArray = include($configFile);
+        ob_end_clean();
+
+        if (!is_array($configArray)) {
+            throw new \Exception("rumble PHP file must return an array.");
         }
-        return $config['dynamo_db'];
+        return $configArray;
     }
 
 }
