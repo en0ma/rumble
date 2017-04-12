@@ -1,2 +1,6 @@
 ## Ignore Visual Studio temporary files, build results, and
 /vendor/
+rumble.php
+/migrations
+/seeds
+.idea
