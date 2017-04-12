@@ -75,4 +75,15 @@ class AppRecordsTableSeeder extends Seeder
 ```
 
 ### **Database Configuration**
-```rumble``` uses a ```rumble.yml``` file as its configuration file. You have to create this file at the root of your project. Use the ```rumble.sample.yml`` file as a guide.
+```rumble``` uses a ```rumble.php``` file as its configuration file. You have to create this file at the root of your project.
+This file must return an array with your dynamodb configuration. e.g:
+
+```php
+<?php
+
+return [
+    'region' => '',
+    'key' => '',
+    'secret' => '',
+    'endpoint' => ''
+ ];
