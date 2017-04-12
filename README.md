@@ -12,14 +12,15 @@ To use ```rumble``` for migration and seeding, you should either have aws dymano
 Since ```rumble``` is still in its infancy, it cannot generate migration or seeder file automatically. You have to manually create files for both migrations and seeds. Migration and Seed files are to be placed in ```migrations``` and ```seeds``` directories at the root of your project.
 
 A migration or seed file must be named with an underscore ```(_)``` separating each word that makes up the file name. e.g:
-```creat_app_records_table.php``` is a valid file name for a migration or a seed file.
-While the file name uses underscore ```(_)``` style, the class name for the ```creat_app_records_table.php``` uses Pascal naaming style. i.e the first letter of every words that makes up the file name must be capitaliz e.g: ```CreateAppRecordsTable```.
+```creat_app_records_table.php```, is a valid file name for a migration or a seed file.
+
+While the file name uses underscore ```(_)``` naming style, the class name for the ```creat_app_records_table.php``` file uses PasCal naming style. i.e the first letter of every word that makes up the file name must be capitalized e.g: ```CreateAppRecordsTable```.
 
 ### **Class Definition**
 - **Migration:** Every migration file (class) you create must extend the rumble ```Migration``` class and must define a ```up``` method.
 - **Seed:** Every seed file (class) you create must extend the rumble ```Seeder``` class and must define a ```seed``` method.
 
-### **Using Drone**
+### **Using Rumble**
 - **Migration:** to migrate files, run ```rumble migrate``` from the root directory of your project. e.g: ```vendor/bin/rumble migrate```
 - **Seed:** to seed files, run ``` rumble seed``` from the root directory of your project e.g ```vendor/bin/rumble seed```
 
@@ -65,7 +66,7 @@ class AppRecordsTableSeeder extends Seeder
     public function seed()
     {
         $table = $this->table('app_records');
-        $table->addItem(['app_uid' => 'x435-n956-00jX-u2fX', 'uninstall' => ['reason' => 'There are too many sad people in the world.']); 
+        $table->addItem(['app_uid' => 'x435-n956-00jX-u2fX', 'uninstall' => ['reason' => 'Still thinking of one.']);
         $table->addItem(['app_uid' => '944-jjU0-o0Hi-y4hh4', 'events' => ['action' => 'click', 'date' => '2017-04-10']]); 
         $table->save();
     }
