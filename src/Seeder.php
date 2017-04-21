@@ -1,6 +1,6 @@
 <?php
 
-namespace en0ma\Rumble;
+namespace Rumble;
 
 abstract class Seeder
 {

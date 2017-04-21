@@ -1,9 +1,10 @@
 <?php
 
-namespace en0ma\Rumble\Commands;
+namespace Rumble\Commands;
 
-use en0ma\Rumble\Resolver;
+use Rumble\Resolver;
 use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Marshaler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

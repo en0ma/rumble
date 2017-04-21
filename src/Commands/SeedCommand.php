@@ -1,8 +1,8 @@
 <?php
 
-namespace en0ma\Rumble\Commands;
+namespace Rumble\Commands;
 
-use en0ma\Rumble\Resolver;
+use Rumble\Resolver;
 use Aws\DynamoDB\Marshaler;
 use Aws\DynamoDb\DynamoDbClient;
 use Symfony\Component\Console\Command\Command;

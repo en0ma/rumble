@@ -25,12 +25,12 @@
     "bin": ["rumble"],
     "autoload": {
         "psr-4": {
-            "en0ma\\Rumble\\": "src/"
+            "Rumble\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "en0ma\\Rumble\\Tests\\": "tests/"
+            "Rumble\\Tests\\": "tests/"
         }
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-namespace en0ma\Rumble;
-
-use Symfony\Component\Yaml\Yaml;
+namespace Rumble;
 
 trait Resolver
 {
