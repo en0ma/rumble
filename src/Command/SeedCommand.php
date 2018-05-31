@@ -1,14 +1,17 @@
 <?php
 
-namespace Rumble\Commands;
+namespace Matasar\Bundle\Rumble\Command;
 
-use Rumble\Resolver;
+use Matasar\Bundle\Rumble\Resolver;
 use Aws\DynamoDB\Marshaler;
 use Aws\DynamoDb\DynamoDbClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @author Lawrence Enehizena <lawstands@gmail.com>
+ */
 class SeedCommand extends Command
 {
     use Resolver;
@@ -24,7 +27,7 @@ class SeedCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('seed')
+            ->setName('rumble:seed')
             ->setDescription('Seeds dynamoDb tables with sample data.')
         ;
     }
@@ -54,7 +57,7 @@ class SeedCommand extends Command
     {
         $dynamoDbClient =  DynamoDbClient::factory($this->getConfig());
         $transformer = new Marshaler();
-        
+
         foreach($classes as $class) {
             $migration = new $class($dynamoDbClient, $transformer);
             $migration->seed();

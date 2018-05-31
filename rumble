@@ -3,8 +3,8 @@
 require __DIR__ . '/../../autoload.php';
 
 use Symfony\Component\Console\Application;
-use Rumble\Commands\MigrateCommand;
-use Rumble\Commands\SeedCommand;
+use Rumble\Command\MigrateCommand;
+use Rumble\Command\SeedCommand;
 
 $app = new Application('Rumble: DynamoDb migration tool.');
 $app->add(new MigrateCommand());

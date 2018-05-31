@@ -1,14 +1,17 @@
 <?php
 
-namespace Rumble\Commands;
+namespace Matasar\Bundle\Rumble\Command;
 
-use Rumble\Resolver;
+use Matasar\Bundle\Rumble\Resolver;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @author Lawrence Enehizena <lawstands@gmail.com>
+ */
 class MigrateCommand extends Command
 {
     use Resolver;
@@ -23,12 +26,9 @@ class MigrateCommand extends Command
      */
     private $directory = 'migrations';
 
-    /**
-     *
-     */
     protected function configure()
     {
-        $this->setName('migrate')
+        $this->setName('rumble:migrate')
             ->setDescription('Creates and versions dynamoDB tables.')
         ;
     }
@@ -52,9 +52,11 @@ class MigrateCommand extends Command
     /**
      * Handle the "migrate" command.
      *
-     * @param $classes
+     * @param array $classes
+     *
+     * @throws \Exception
      */
-    private function runMigration($classes)
+    private function runMigration(array $classes)
     {
         $this->dynamoDBClient = DynamoDbClient::factory($this->getConfig());
 
@@ -76,7 +78,13 @@ class MigrateCommand extends Command
         }
     }
 
-    private function getPendingMigrations($classes, $ranMigrations)
+    /**
+     * @param array $classes
+     * @param array $ranMigrations
+     *
+     * @return mixed
+     */
+    private function getPendingMigrations(array $classes, array $ranMigrations)
     {
         foreach ($ranMigrations as $ranMigration) {
             $key = array_search($ranMigration, $classes);
@@ -86,6 +94,9 @@ class MigrateCommand extends Command
         return $classes;
     }
 
+    /**
+     * @return array
+     */
     private function getRanMigrations()
     {
         $result =  $this->dynamoDBClient->scan([
@@ -101,6 +112,9 @@ class MigrateCommand extends Command
         return $ranMigrations;
     }
 
+    /**
+     * @return bool
+     */
     private function isMigrationsTableExist()
     {
         $tables = $this->dynamoDBClient->listTables();
@@ -124,12 +138,15 @@ class MigrateCommand extends Command
                 ]
             ],
             'ProvisionedThroughput' => [
-                'ReadCapacityUnits'  => 100,
-                'WriteCapacityUnits' => 100
+                'ReadCapacityUnits'  => 1,
+                'WriteCapacityUnits' => 1
             ]
         ]);
     }
 
+    /**
+     * @param string $migration
+     */
     private function addToRanMigrations($migration)
     {
         $this->dynamoDBClient->putItem([
