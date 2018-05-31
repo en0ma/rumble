@@ -1,40 +1,48 @@
 {
-    "name": "matasarei/rumble",
-    "description": "A DynamoDB migration bundle for Symfony 4",
-    "type": "library",
-    "minimum-stability": "stable",
-    "license": "MIT",
-    "keywords": [
-        "dynamodb",
-        "migration",
-        "php"
-    ],
-    "authors": [
-        {
-            "name": "Lawrence Enehizena",
-            "email": "lawstands@gmail.com"
-        },
-        {
-            "name": "Yevhen Matasar",
-            "email": "matasarei@gmail.com"
-        }
-    ],
-    "require": {
-        "symfony/console": "^4.0",
-        "aws/aws-sdk-php": "^3.0"
+  "name": "matasarei/rumble",
+  "description": "A DynamoDB migration bundle for Symfony 4",
+  "type": "symfony-bundle",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "keywords": [
+    "dynamodb",
+    "migration",
+    "php"
+  ],
+  "authors": [
+    {
+      "name": "Lawrence Enehizena",
+      "email": "lawstands@gmail.com"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^5.7"
-    },
-    "bin": ["rumble"],
-    "autoload": {
-        "psr-4": {
-            "Matasar\\Bundle\\Rumble\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Matasar\\Bundle\\Rumble\\Tests\\": "tests/"
-        }
+    {
+      "name": "Yevhen Matasar",
+      "email": "matasarei@gmail.com"
     }
+  ],
+  "require": {
+    "symfony/console": "^4.0",
+    "aws/aws-sdk-php": "^3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7"
+  },
+  "bin": [
+    "rumble"
+  ],
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Matasar\\Bundle\\Rumble\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Matasar\\Bundle\\Rumble\\Tests\\": "tests/"
+    }
+  }
 }
